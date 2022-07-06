@@ -54,6 +54,18 @@ const post = [
         "is_liked": false,
         "created": "2022-06-03"
     },
+    {
+        "id": 3,
+        "content": "(小苹果)你是我的小呀小苹果 就像天边最美的云朵 春天又来到了花开满山坡 种下希望就会收获 从不觉得你讨厌 你的一切都喜欢 有你的每天都新鲜",
+        "media": "https://unsplash.it/600/400?image=306",
+        "author": {
+                    "name": "汪惟杰",
+                    "image": "https://unsplash.it/300/300?image=82"
+                    },
+        "likes": 1412,
+        "is_liked": false,
+        "created": "2022-06-03"
+    },
 ]
 console.table(post);
 //Prendendo come riferimento il layout di esempio presente nell'html
@@ -94,41 +106,27 @@ for (let i = 0; i < post.length; i++) {
 };
 
 //Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
-const likeIcon = document.querySelectorAll('.js-like-button');
-let likeCounter = document.querySelectorAll('.js-likes-counter');
-for (let i = 0; i < likeIcon.length; i++) {
-    likeIcon[i].addEventListener("click", (event) => {
-    event.currentTarget.classList.toggle("like-button--liked");
-    let likeCounter = [i]
-    if(event.currentTarget.classList.contains("like-button--liked")){
-        clicked = true;
-        likeIcon.innerHTML='<i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>'
-        likeCounter.texContent++
-    }
-       
-    
-    else{
-        clicked = false;
-        likeIcon.innerHTML='<i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>'
-        likeCounter.texContent--
-       }
-       
-    }) 
-    const likes=document.querySelector('.js-like-button');
-    let  clicked = false;
-    likes.addEventListener("click", () => {
-        if(!clicked){
-             clicked = true;
-        likeIcon.innerHTML='<i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>'
-        likeCounter.texContent++
-    }
-       
-    
-    else{
-        clicked = false;
-        likeIcon.innerHTML='<i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>'
-        likeCounter.texContent--
-       }
-    }) 
-}
 
+
+const likeIcon = document.querySelectorAll('.js-like-button');
+const ikeCounter = document.querySelectorAll('.js-likes-counter');
+for (let i = 0; i < likeIcon.length; i++) {
+let isClicked = false;
+likeIcon[i].addEventListener("click",(event) =>{
+    event.currentTarget.classList.toggle("like-button--liked");
+    if(!isClicked){
+        event.currentTarget.classList.contains("like-button--liked")
+        isClicked = true;
+        likeIcon[i].innerHTML = `<i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+        <span class="like-button__label">Mi Piace</span>`;
+        ikeCounter[i].textContent++;
+    }
+    else{
+        isClicked = false;
+        likeIcon[i].innerHTML = `<i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+        <span class="like-button__label">Mi Piace</span>`;
+        ikeCounter[i].textContent--;
+    }
+
+})
+}
