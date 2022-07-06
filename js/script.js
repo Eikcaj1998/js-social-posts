@@ -21,6 +21,114 @@ Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i 
 #Milestone 3
 Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 # ****BONUS**
- 1. Formattare le date in formato italiano (gg/mm/aaaa)
- 2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola  => LF).
- 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone. */
+1. Formattare le date in formato italiano (gg/mm/aaaa)
+2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola  => LF).
+3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone. */
+
+
+//dichiaro dom
+const container = document.getElementById('container');
+// creiamo l'array
+const post = [
+    {
+        "id": 1,
+        "content": "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
+        "media": "https://unsplash.it/600/300?image=171",
+        "author": {
+            "name": "Phil Mangione",
+                    "image": "https://unsplash.it/300/300?image=15"
+                    },
+        "likes": 80,
+        "is_liked": true,
+        "created": "2022-06-25"
+    },
+    {
+        "id": 2,
+        "content": "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
+        "media": "https://unsplash.it/600/400?image=112",
+        "author": {
+                    "name": "Sofia Perlari",
+                    "image": "https://unsplash.it/300/300?image=10"
+                    },
+        "likes": 120,
+        "is_liked": false,
+        "created": "2022-06-03"
+    },
+]
+console.table(post);
+//Prendendo come riferimento il layout di esempio presente nell'html
+for (let i = 0; i < post.length; i++) {
+    let currentElement = post[i];
+    container.innerHTML += 
+    `<div class="post" id="current-post">
+        <div class="post__header">
+            <div class="post-meta">
+                <div class="post-meta__icon">
+                    <img class="profile-pic" src="${currentElement.author.image}" alt="${currentElement.author.name}">
+                </div>
+                <div class="post-meta__data">
+                    <div class="post-meta__author">${currentElement.author.name}</div>
+                    <div class="post-meta__time">${currentElement.created}</div>
+                </div>
+            </div>
+        </div>
+        <div class="post__text">${currentElement.content}</div>
+        <div class="post__image">
+        <img src="${currentElement.media}" alt="post_image.jpg">
+        </div>
+            <div class="post__footer">
+                <div class="likes js-likes">
+                    <div class="likes__cta">
+                        <a class="like-button  js-like-button" href="#)" data-postid="1">
+                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                            <span class="like-button__label">Mi Piace</span>
+                        </a>
+                    </div>
+                    <div class="likes__counter">
+                        Piace a <b id="like-counter-1" class="js-likes-counter">${currentElement.likes}</b> persone
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`
+};
+
+//Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
+const likeIcon = document.querySelectorAll('.js-like-button');
+let likeCounter = document.querySelectorAll('.js-likes-counter');
+for (let i = 0; i < likeIcon.length; i++) {
+    likeIcon[i].addEventListener("click", (event) => {
+    event.currentTarget.classList.toggle("like-button--liked");
+    let likeCounter = [i]
+    if(event.currentTarget.classList.contains("like-button--liked")){
+        clicked = true;
+        likeIcon.innerHTML='<i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>'
+        likeCounter.texContent++
+    }
+       
+    
+    else{
+        clicked = false;
+        likeIcon.innerHTML='<i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>'
+        likeCounter.texContent--
+       }
+       
+    }) 
+    const likes=document.querySelector('.js-like-button');
+    let  clicked = false;
+    likes.addEventListener("click", () => {
+        if(!clicked){
+             clicked = true;
+        likeIcon.innerHTML='<i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>'
+        likeCounter.texContent++
+    }
+       
+    
+    else{
+        clicked = false;
+        likeIcon.innerHTML='<i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>'
+        likeCounter.texContent--
+       }
+    }) 
+}
+
